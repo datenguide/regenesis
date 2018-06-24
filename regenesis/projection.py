@@ -10,9 +10,9 @@ def make_views():
         q = 'DROP VIEW IF EXISTS ' + slug
         engine.query(q)
         q, params = query_cube(cube.get('cube_name'), readable=False)
-        q = 'CREATE VIEW ' + slug + ' AS ' + unicode(q)
+        q = 'CREATE VIEW ' + slug + ' AS ' + str(q)
         engine.query(q, **params)
-        print [slug, q]
+        print([slug, q])
 
 if __name__ == '__main__':
     make_views()

@@ -1,11 +1,11 @@
 import requests
 import re
 from lxml import etree
-from HTMLParser import HTMLParser
+from html import unescape
 
-from regenesis.cube import Cube
 
 QUADER = re.compile(r"<quaderDaten>\* (.*)<\/quaderDaten>", re.S | re.M)
+
 
 def fetch_index(catalog):
     for i in range(10, 100):
@@ -21,8 +21,8 @@ def fetch_index(catalog):
         doc = requests.get(catalog.get('index_url'), params=params)
         doc = etree.fromstring(doc.content)
         for entry in doc.findall('.//datenKatalogEintraege/datenKatalogEintraege'):
-            #print [entry.findtext('./code')]
             yield entry.findtext('./code')
+
 
 def fetch_cube(catalog, name):
     params = [
@@ -50,14 +50,9 @@ def fetch_cube(catalog, name):
         ('stand', ''),
         ('sprache', 'de')
         ]
-    doc = requests.get(catalog.get('export_url'), params=params)
-    #print [doc.url]
-    #doc = etree.fromstring(doc.content)
-    #return doc.find('.//quaderDaten').text
-    m = QUADER.search(doc.content)
+    res = requests.get(catalog.get('export_url'), params=params)
+    m = QUADER.search(res.text)
     if m is None:
-        print "NO CUBE CONTENT", catalog, name
+        print("NO CUBE CONTENT", catalog, name)
         return
-    return HTMLParser().unescape(m.group(1))
-    #return Cube(name, data)
-
+    return unescape(m.group(1))

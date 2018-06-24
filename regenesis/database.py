@@ -26,7 +26,7 @@ def load_cube(cube, update=False):
     cube_table.upsert(cube.to_row(), ['name'])
     statistic_table.upsert(cube.metadata.get('statistic'), ['name'])
 
-    for dimension in cube.dimensions.values():
+    for dimension in list(cube.dimensions.values()):
         dimension_table.upsert(dimension.to_row(), ['name'])
         for value in dimension.values:
             value_table.upsert(value.to_row(), ['value_id'])
