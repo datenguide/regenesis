@@ -1,6 +1,6 @@
 from datetime import datetime
 from hashlib import sha1
-from slugify import slugify
+
 
 def make_key(*a):
     parts = []
@@ -10,16 +10,16 @@ def make_key(*a):
         elif part is None:
             part = '**'
         else:
-            part = unicode(part)
+            part = str(part)
         parts.append(part)
-    return sha1('||'.join(parts)).hexdigest()
+    return sha1('||'.join(parts).encode()).hexdigest()
 
 
 def flatten(d, sep='_'):
     out = {}
-    for k, v in d.items():
+    for k, v in list(d.items()):
         if isinstance(v, dict):
-            for ik, iv in flatten(v, sep=sep).items():
+            for ik, iv in list(flatten(v, sep=sep).items()):
                 out[k + sep + ik] = iv
         else:
             out[k] = v

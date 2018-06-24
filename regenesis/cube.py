@@ -1,6 +1,6 @@
 from collections import defaultdict
 from csv import reader
-from StringIO import StringIO
+from io import StringIO
 
 from regenesis.mappings import KEYS_TRANSLATE, KEYS_IGNORE, KEYS_LOCALIZED
 from regenesis.formats import parse_date, parse_bool
@@ -25,6 +25,7 @@ FIELD_TYPES = {
   'float_precision': int
   }
 
+
 class Section(object):
 
     def __init__(self, data):
@@ -44,12 +45,12 @@ class Section(object):
     @property
     def rows(self):
         if self._rows is None:
-            plain = '\n'.join(self._data).encode('utf-8')
-            plain = plain.replace(';\n"', ';"')
-            csv = reader(StringIO(plain), delimiter=';')
+            plain = '\n'.join(self._data).encode()
+            plain = plain.replace(b';\n"', b';"')
+            csv = reader(StringIO(plain.decode()), delimiter=';')
             self._rows = []
             for row in csv:
-                row = [r.decode('utf-8') for r in row]
+                row = [r for r in row]
                 self._rows.append(row[1:])
         return self._rows
 
@@ -76,7 +77,7 @@ class Section(object):
     @property
     def first(self):
         objs = list(self)
-        assert len(objs)==1, 'first() on multi-row data!'
+        assert len(objs) == 1, 'first() on multi-row data!'
         return objs[0]
 
 
@@ -126,17 +127,16 @@ class Fact(object):
         return self.mapping.get(self.cube.times[0].name)
 
     def get_value(self, dimension, value):
-        return self.cube.dimensions[dimension].find_value(value,
-                self.time.get('from'), self.time.get('until'))
+        return self.cube.dimensions[dimension].find_value(value, self.time.get('from'), self.time.get('until'))
 
     def to_row(self):
         out, values = {}, {}
-        for key, value in self.mapping.items():
+        for key, value in list(self.mapping.items()):
             if isinstance(value, dict) and 'value' in value:
                 values[key] = value.get('value')
                 del value['value']
             if not isinstance(value, dict) and key != 'fact_id':
-                value = self.get_value(key, value) 
+                value = self.get_value(key, value)
                 if value is not None:
                     value = value.id
             out[key] = value
@@ -146,7 +146,7 @@ class Fact(object):
 
     def to_dict(self):
         return self.mapping
-        #return self.to_row()
+        # return self.to_row()
 
     def __repr__(self):
         return repr(self.mapping)
@@ -175,12 +175,12 @@ class Value(object):
     def match(self, name, begin_fact, end_fact):
         if name != self.name:
             return False
-        #if begin_fact and self.data.get('valid_from') and \
-        #    begin_fact < self.data.get('valid_from'):
-        #    return False
-        #if end_fact and self.data.get('valid_until') and \
-        #    end_fact > self.data.get('valid_until'):
-        #    return False
+        # if begin_fact and self.data.get('valid_from') and \
+        #     begin_fact < self.data.get('valid_from'):
+        #     return False
+        # if end_fact and self.data.get('valid_until') and \
+        #     end_fact > self.data.get('valid_until'):
+        #     return False
         return True
 
     def to_row(self):
@@ -269,7 +269,7 @@ class Cube(object):
                 sections[section].append(row)
 
             self._sections = {}
-            for name, rows in sections.items():
+            for name, rows in list(sections.items()):
                 self._sections[name] = Section(rows)
 
         return self._sections
@@ -351,5 +351,3 @@ class Cube(object):
 
     def __repr__(self):
         return self.provenance
-
-

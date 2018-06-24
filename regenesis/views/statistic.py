@@ -55,7 +55,7 @@ def view(catalog, slug, name):
             dim['show'] = False
       cube['stand'] = cube['provenance'].split('hat am')[-1].split('um')[0].strip()
       cubes.append(cube)
-    common = [d for d, i in dims.items() if i == len(cubes)]
+    common = [d for d, i in list(dims.items()) if i == len(cubes)]
     commons = {}
     for cube in cubes:
         for dim in cube['dimensions']:
@@ -71,6 +71,6 @@ def view(catalog, slug, name):
                            cubes=cubes,
                            keywords_text=keywords,
                            description_text=description,
-                           common=commons.values(),
+                           common=list(commons.values()),
                            has_common=len(common) > 0,
                            statistic=statistic)

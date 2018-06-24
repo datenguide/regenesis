@@ -16,7 +16,7 @@ def get_output_dir():
     #return '/Users/fl/tmp/regenesis'
 
 def freeze_request(req_path):
-    print "Freezing %s..." % req_path
+    print("Freezing %s..." % req_path)
     path = os.path.join(get_output_dir(), req_path.lstrip('/'))
     dirname = os.path.dirname(path)
     if not os.path.exists(dirname):
@@ -28,7 +28,7 @@ def freeze_request(req_path):
 
 
 def freeze_html():
-    print "Copying /static..."
+    print("Copying /static...")
     outdir = os.path.join(get_output_dir(), 'static')
     if os.path.isdir(outdir):
         shutil.rmtree(outdir)
@@ -47,12 +47,12 @@ def freeze_html():
 
 
 def freeze_data():
-    print "Freezing dimension values..."
+    print("Freezing dimension values...")
     prefix = os.path.join(get_output_dir(), 'data', 'dimensions')
     freeze(value_table.all(), prefix=prefix, filename='{{dimension_name}}.csv', format='csv')
     freeze(value_table.all(), prefix=prefix, filename='{{dimension_name}}.json', format='json')
 
-    print "Freezing cubes..."
+    print("Freezing cubes...")
     for cube in get_cubes():
         prefix = os.path.join(get_output_dir(), 'data',
                               cube['statistic_name'],
@@ -61,7 +61,7 @@ def freeze_data():
         for (text, rb) in [('labeled', True), ('raw', False)]:
             q, ps = query_cube(cube['cube_name'], readable=rb)
             fn = '%s-%s-%s.csv' % (slug, cube['cube_name'], text)
-            print [fn]
+            print([fn])
             freeze(engine.query(q), prefix=prefix, filename=fn)
             #print cube['cube_name']
 

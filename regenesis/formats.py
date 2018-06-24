@@ -68,8 +68,8 @@ def parse_bool(bool_text):
     return bool_text == 'J'
 
 if __name__ == '__main__':
-    print parse_date('2013')
-    print parse_date('2013-2017')
-    print parse_date('2013/17')
-    print parse_date('WS 2007/08')
-    print parse_date('KW 10/2013')
+    print(parse_date('2013'))
+    print(parse_date('2013-2017'))
+    print(parse_date('2013/17'))
+    print(parse_date('WS 2007/08'))
+    print(parse_date('KW 10/2013'))

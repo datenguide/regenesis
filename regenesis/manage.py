@@ -38,7 +38,7 @@ def fetch(catalog_name, update=False):
                     log.warn("Could not fetch: %s", cube_name)
                 else:
                     store_cube_raw(catalog_name, cube_name, cube_data)
-            except Exception, e:
+            except Exception as e:
                 log.exception(e)
 
 
