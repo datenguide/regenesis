@@ -37,8 +37,8 @@ class Section(object):
     def columns(self):
         columns = []
         for col in self._header[1:]:
-            col = col.lower().replace('-', '_')
-            col = KEYS_TRANSLATE.get(col, col)
+            col = col.replace('-', '_')
+            col = KEYS_TRANSLATE.get(col.lower(), col)
             columns.append(col)
         return columns
 
@@ -65,7 +65,7 @@ class Section(object):
                     value = FIELD_TYPES[key](value)
                 if key == 'trans_flag_2':
                     is_translated = value
-                if key in KEYS_IGNORE:
+                if key.lower() in KEYS_IGNORE:
                     continue
                 obj[key] = value
             if not is_translated:
@@ -93,7 +93,7 @@ class Fact(object):
         mapping = {}
         identity_parts = []
         for axis in self.cube.axes:
-            mapping[axis.name] = self.row[offset].lower()
+            mapping[axis.name] = self.row[offset]
             identity_parts.append(self.row[offset])
             offset += 1
 
@@ -158,7 +158,7 @@ class Value(object):
         self.dimension = dimension
         self.data = base_data.copy()
         self.data.update(assoc_data)
-        self.data['name'] = self.data.get('key').lower()
+        self.data['name'] = self.data.get('key')
         del self.data['key']
 
     @property
@@ -198,7 +198,6 @@ class Dimension(object):
 
     def __init__(self, cube, data):
         self.cube = cube
-        data['name'] = data['name'].lower()
         self.data = data
         self.values = []
 
@@ -227,7 +226,6 @@ class Reference(object):
 
     def __init__(self, cube, data, type_):
         self.cube = cube
-        data['name'] = data['name'].lower()
         self.data = data
         self.type_ = type_
 
@@ -255,7 +253,7 @@ class Reference(object):
 class Cube(object):
 
     def __init__(self, name, data):
-        self.name = name.lower()
+        self.name = name
         self.provenance, self.data = data.split('\n', 1)
 
     @property
@@ -286,9 +284,9 @@ class Cube(object):
                 }
             md['statistic'].update(self.sections['ERH-D'].first)
             md['cube'].update(self.sections['DQ-ERH'].first)
-            md['cube']['statistic_name'] = md['cube']['key'].lower()
+            md['cube']['statistic_name'] = md['cube']['key']
             del md['cube']['key']
-            md['statistic']['name'] = md['statistic']['key'].lower()
+            md['statistic']['name'] = md['statistic']['key']
             del md['statistic']['key']
             self._metadata = md
         return self._metadata
@@ -298,12 +296,12 @@ class Cube(object):
         if not hasattr(self, '_dimensions'):
             self._dimensions = {}
             for dim in self.sections['MM']:
-                self._dimensions[dim['name'].lower()] = Dimension(self, dim)
+                self._dimensions[dim['name']] = Dimension(self, dim)
             values = {}
             for val in self.sections['KMA']:
                 values[val['key']] = val
             for assoc in self.sections['KMAZ']:
-                self._dimensions[assoc['name'].lower()].add_value(values[assoc['key']], assoc)
+                self._dimensions[assoc['name']].add_value(values[assoc['key']], assoc)
         return self._dimensions
 
     @property
