@@ -1,5 +1,6 @@
 
 KEYS_TRANSLATE = {
+    'name': 'name',
     'wert': 'value',
     'wert_verfaelscht': 'value_error',
     'qualitaet': 'quality',
@@ -24,7 +25,7 @@ KEYS_TRANSLATE = {
     '"mit werten"': 'includes_values',
     'typ': 'type',
     'nkm_stellen': 'float_precision',
-    'me_name': 'unit_name',
+    'mm_name': 'unit_name',
     'mm_typ': 'measure_type',
     'ghm_werte_jn': 'secret_values',
     'ober_bgr_jn': 'meta_variable',
@@ -41,4 +42,3 @@ KEYS_TRANSLATE = {
 KEYS_IGNORE = ['spr_tmp', 'trans_flag_2', 'genesis_vbd', 'regiostat', 'eu_vbd', 'max_width']
 
 KEYS_LOCALIZED = ['title_en', 'long_title_en', 'definition_en', 'description_en', 'me_name_2']
-
