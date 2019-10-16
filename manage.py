@@ -18,7 +18,7 @@ def fetchcube(catalog_name, cube_name):
     catalog = get_catalog(catalog_name)
     cube_data = fetch_cube(catalog, cube_name)
     if cube_data is None:
-        log.warn("Could not fetch: %s", cube_name)
+        log.warning("Could not fetch: %s", cube_name)
     else:
         store_cube_raw(catalog_name, cube_name, cube_data)
 
@@ -33,7 +33,7 @@ def fetch(catalog_name, update=False):
             try:
                 cube_data = fetch_cube(catalog, cube_name)
                 if cube_data is None:
-                    log.warn("Could not fetch: %s", cube_name)
+                    log.warning("Could not fetch: %s", cube_name)
                 else:
                     store_cube_raw(catalog_name, cube_name, cube_data)
             except Exception as e:

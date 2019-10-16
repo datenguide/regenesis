@@ -5,15 +5,17 @@ from dataset import freeze
 from regenesis.queries import get_all_statistics, get_all_dimensions
 from regenesis.queries import get_cubes, query_cube
 from regenesis.database import value_table
-from regenesis.util import slugify
+from slugify import slugify
 from regenesis.web import app
 from regenesis.core import engine
 
 client = app.test_client()
 
+
 def get_output_dir():
     return os.path.join( app.root_path, '..', 'build')
     #return '/Users/fl/tmp/regenesis'
+
 
 def freeze_request(req_path):
     print("Freezing %s..." % req_path)
@@ -64,6 +66,7 @@ def freeze_data():
             print([fn])
             freeze(engine.query(q), prefix=prefix, filename=fn)
             #print cube['cube_name']
+
 
 if __name__ == '__main__':
     freeze_data()

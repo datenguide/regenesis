@@ -33,11 +33,14 @@ def get_dimensions(cube_name):
     res = engine.query(q)
     return list(res)
 
+
 def get_all_dimensions():
     return list(dimension_table)
 
+
 def get_all_statistics():
     return list(statistic_table)
+
 
 def query_cube(cube_name, readable=True):
     cube = get_cube(cube_name)

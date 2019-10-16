@@ -1,6 +1,7 @@
 from regenesis.queries import get_cubes, query_cube
 from regenesis.core import engine
-from regenesis.util import slugify
+from slugify import slugify
+
 
 def make_views():
     for cube in get_cubes():
@@ -13,6 +14,7 @@ def make_views():
         q = 'CREATE VIEW ' + slug + ' AS ' + str(q)
         engine.query(q, **params)
         print([slug, q])
+
 
 if __name__ == '__main__':
     make_views()

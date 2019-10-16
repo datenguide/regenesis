@@ -62,7 +62,6 @@ def page_api():
     return render_template('api.html')
 
 
-
 @app.route('/faq.html')
 def page_faq():
     return render_template('faq.html')
