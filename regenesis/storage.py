@@ -1,6 +1,7 @@
 import os
 import json
 from regenesis.core import app
+from regenesis.export import JSONEncoder
 
 def cube_path(catalog, cube_name, ext='raw'):
     return os.path.join(

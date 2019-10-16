@@ -1,12 +1,10 @@
 import logging
-from flask.ext.script import Manager
+from flask_script import Manager
 
-from regenesis.core import app, get_catalog
-from regenesis.export import JSONEncoder
+from regenesis.core import get_catalog
 from regenesis.cube import Cube
 from regenesis.web import app
-from regenesis.storage import store_cube_raw, load_cube_raw, \
-    dump_cube_json, exists_raw
+from regenesis.storage import store_cube_raw, load_cube_raw, exists_raw
 from regenesis.retrieve import fetch_index, fetch_cube
 from regenesis.database import load_cube
 
