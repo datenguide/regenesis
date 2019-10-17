@@ -1,6 +1,6 @@
-from sqlalchemy import func, select, and_
+from sqlalchemy import select, and_
 from sqlalchemy.sql.expression import bindparam
-from regenesis.core import engine, app
+from regenesis.core import engine
 
 from regenesis.database import cube_table, value_table, statistic_table
 from regenesis.database import dimension_table, reference_table, get_fact_table

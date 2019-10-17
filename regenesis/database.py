@@ -2,7 +2,7 @@ import logging
 
 from sqlalchemy.types import BigInteger
 
-from regenesis.core import app, engine
+from regenesis.core import engine
 
 log = logging.getLogger(__name__)
 

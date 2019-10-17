@@ -1,6 +1,6 @@
 #coding: utf-8
-from flask import render_template, Response, request
-from flask import session, redirect, flash, Markup, url_for
+from flask import render_template, Response
+from flask import Markup
 
 from regenesis.core import app
 from slugify import slugify as _slugify
