@@ -1,6 +1,6 @@
 import os
 import shutil
-from dataset import freeze
+from datafreeze import freeze
 
 from regenesis.queries import get_all_statistics, get_all_dimensions
 from regenesis.queries import get_cubes, query_cube
