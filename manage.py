@@ -1,12 +1,10 @@
 import logging
-from flask.ext.script import Manager
+from flask_script import Manager
 
-from regenesis.core import app, get_catalog
-from regenesis.export import JSONEncoder
+from regenesis.core import get_catalog
 from regenesis.cube import Cube
 from regenesis.web import app
-from regenesis.storage import store_cube_raw, load_cube_raw, \
-    dump_cube_json, exists_raw
+from regenesis.storage import store_cube_raw, load_cube_raw, exists_raw
 from regenesis.retrieve import fetch_index, fetch_cube
 from regenesis.database import load_cube
 
@@ -20,7 +18,7 @@ def fetchcube(catalog_name, cube_name):
     catalog = get_catalog(catalog_name)
     cube_data = fetch_cube(catalog, cube_name)
     if cube_data is None:
-        log.warn("Could not fetch: %s", cube_name)
+        log.warning("Could not fetch: %s", cube_name)
     else:
         store_cube_raw(catalog_name, cube_name, cube_data)
 
@@ -35,7 +33,7 @@ def fetch(catalog_name, update=False):
             try:
                 cube_data = fetch_cube(catalog, cube_name)
                 if cube_data is None:
-                    log.warn("Could not fetch: %s", cube_name)
+                    log.warning("Could not fetch: %s", cube_name)
                 else:
                     store_cube_raw(catalog_name, cube_name, cube_data)
             except Exception as e:

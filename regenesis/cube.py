@@ -12,7 +12,6 @@ FIELD_TYPES = {
   'regiostat': parse_bool,
   'secret_values': parse_bool,
   'spr_tmp': parse_bool,
-  'regiostat': parse_bool,
   'trans_flag_2': parse_bool,
   'meta_variable': parse_bool,
   'summable': parse_bool,

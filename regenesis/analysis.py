@@ -1,7 +1,5 @@
 from pprint import pprint 
 
-from regenesis.core import app, engine
-from regenesis.database import statistic_table, cube_table, reference_table
 from regenesis.queries import get_cubes, get_dimensions
 
 def find_denormalized():
