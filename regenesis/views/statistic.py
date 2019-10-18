@@ -11,11 +11,11 @@ from regenesis.views.util import parse_description
 blueprint = Blueprint('statistic', __name__)
 
 ADM_RANKS = {
-    'gemein': 1,
-    'kreise': 2,
-    'regbez': 3,
-    'dland': 4,
-    'dinsg': 5
+    'GEMEIN': 1,
+    'KREISE': 2,
+    'REGBEZ': 3,
+    'DLAND': 4,
+    'DINSG': 5
 }
 
 def make_keywords(titles):
