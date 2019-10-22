@@ -23,7 +23,7 @@ def freeze_request(req_path):
     dirname = os.path.dirname(path)
     if not os.path.exists(dirname):
         os.makedirs(dirname)
-    fh = open(path, 'w')
+    fh = open(path, 'wb')
     res = client.get(req_path)
     fh.write(res.data)
     fh.close()

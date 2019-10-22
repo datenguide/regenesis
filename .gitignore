@@ -6,4 +6,5 @@ legacy/data/*
 *.pyc
 *.egg-info
 s3config
+settings.py
 *.raw
