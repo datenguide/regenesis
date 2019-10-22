@@ -1,5 +1,7 @@
 import logging
+import os
 from flask_script import Manager
+from dotenv import load_dotenv
 
 from regenesis.core import get_catalog
 from regenesis.cube import Cube
@@ -10,6 +12,9 @@ from regenesis.database import load_cube
 
 manager = Manager(app)
 log = logging.getLogger(__name__)
+
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 
 @manager.command
